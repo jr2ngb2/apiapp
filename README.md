@@ -12,3 +12,5 @@ The app will be running on localhost:3000.
 
 
 Navigate to http://localhost:3000/ in order to view the app.
+
+The jest test can be executed using the command npm test.
