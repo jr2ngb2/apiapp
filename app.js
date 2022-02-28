@@ -5,19 +5,16 @@ const axios = require('axios');
 const { response } = require('express');
 const { moduleExpression } = require('@babel/types');
 var data;
-var picsData;
 var toDisplay = "";
 async function getData(){await axios.get('https://restcountries.com/v2/all')
   .then(function (response) {
     // handle success
     data = response.data;
-    console.log("entered this");
-    //console.log(response);
-    return response;
+     return response;
 })
   .catch(function (error) {
     // handle error
-    console.log("returning from here")
+    
     console.log(error);
     return error;
   })
@@ -27,9 +24,8 @@ async function getData(){await axios.get('https://restcountries.com/v2/all')
 const buildHTML = (result , toDisplay) => {
     for(var i=0;i<result.length;i++)
     {
-    console.log("entered");
-    toDisplay += `<div class = "imgtopdiv card container col-xs-6">`
-    toDisplay += `<img src = "` + result[i].flags.png + `" class="card-img-top imgcard"></img>`;
+    toDisplay += `<div class = "imgtopdiv card border-dark container-fluid col-md-6 md-5">`
+    toDisplay += `<img src = "` + result[i].flags.png + `" class="imgcard"></img>`;
     toDisplay += `<div style="text-align:center">`;
     toDisplay += `<li style="text-align:left"> Country : ` + result[i].name + `</li>`;
     toDisplay += `<li style="text-align:left">Capital : ` + result[i].capital + `</li>`;
@@ -47,14 +43,18 @@ app.use(express.static(__dirname + '/public'));
   app.get('/' , async function(req,res){
       try{
      await getData();
-     //await getPics();
+     
     toDisplay = `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">`;
     toDisplay += `<link rel="stylesheet" type="text/css" href="/styles.css">`;
     toDisplay +=   `<nav class="navbar navbar-dark mb-5 bg-dark ">
                     <span class="navbar-brand h1 topnav">Countries of the world</span>
                     </nav>`;
-    toDisplay += `<h2 class="topHeading">Some Facts About The Different Countries Of The World</h2><div class="container"><div class="row">`;
-    const page = req.query.page;
+    toDisplay += `<h2 class="topHeading">Some Facts About The Different Countries Of The World</h2><div class = "container"><div class="row">`;
+    var page = req.query.page;
+    if(!page)
+    {
+      page = 1;
+    }
     const limit = 10;
     const startIndex = (page-1)*limit;
     const endIndex = page*limit;

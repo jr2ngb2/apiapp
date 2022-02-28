@@ -2,13 +2,17 @@
 
 
 .imgtopdiv{
-    text-align:center;
-    width:50%;
+    /* text-align:center; */
+    width:100%;
     height:40%;
     flex-direction : column;
+    margin-bottom : 25px;
+    
 }
 .imgcard{
     height:350px;
+    width:100%;
+
 }
 .topnav{
     text-align:center;
